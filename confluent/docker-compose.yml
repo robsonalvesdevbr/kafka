@@ -1,6 +1,114 @@
 ---
 services:
 
+  # kafka1:
+  #   image: confluentinc/cp-kafka:latest
+  #   hostname: kafka1
+  #   container_name: kafka1
+  #   ports:
+  #     - "9092:9092"
+  #     - "9101:9101"
+  #   environment:
+  #     KAFKA_BROKER_ID: 1
+  #     KAFKA_LISTENERS: SASL_PLAINTEXT://kafka1:9092,CONTROLLER://kafka1:9093
+  #     KAFKA_ADVERTISED_LISTENERS: SASL_PLAINTEXT://kafka1:9092
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: SASL_PLAINTEXT:SASL_PLAINTEXT,CONTROLLER:PLAINTEXT
+  #     KAFKA_INTER_BROKER_LISTENER_NAME: SASL_PLAINTEXT
+  #     KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+  #     KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+  #     KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+  #     KAFKA_SASL_PLAIN_USERNAME: user
+  #     KAFKA_SASL_PLAIN_PASSWORD: password
+  #     KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+  #     KAFKA_NODE_ID: 1
+  #     KAFKA_PROCESS_ROLES: broker,controller
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+  #     KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+  #     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 2
+  #     KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+  #     KAFKA_OPTS: '-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf'
+  # #     # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
+  # #     # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
+  #     CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+  #   volumes:
+  #     - ./secrets/kafka_server_jaas.conf:/etc/kafka/kafka_server_jaas.conf
+  #   # volumes:
+  #   #   - kafka1_data:/var/lib/kafka/data
+  #   # networks:
+  #   #   - kafka-net
+
+  # kafka2:
+  #   image: confluentinc/cp-kafka:latest
+  #   hostname: kafka2
+  #   container_name: kafka2
+  #   ports:
+  #     - "9093:9092"
+  #     - "9102:9101"
+  #   environment:
+  #     KAFKA_BROKER_ID: 2
+  #     KAFKA_LISTENERS: SASL_PLAINTEXT://kafka2:9092,CONTROLLER://kafka2:9093
+  #     KAFKA_ADVERTISED_LISTENERS: SASL_PLAINTEXT://kafka2:9092
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: SASL_PLAINTEXT:SASL_PLAINTEXT,CONTROLLER:PLAINTEXT
+  #     KAFKA_INTER_BROKER_LISTENER_NAME: SASL_PLAINTEXT
+  #     KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+  #     KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+  #     KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+  #     KAFKA_SASL_PLAIN_USERNAME: user
+  #     KAFKA_SASL_PLAIN_PASSWORD: password
+  #     KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+  #     KAFKA_NODE_ID: 2
+  #     KAFKA_PROCESS_ROLES: broker,controller
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+  #     KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+  #     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 2
+  #     KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+  #     KAFKA_OPTS: '-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf'
+  # #     # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
+  # #     # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
+  #     CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+  #   volumes:
+  #     - ./secrets/kafka_server_jaas.conf:/etc/kafka/kafka_server_jaas.conf
+  #   # volumes:
+  #   #   - kafka2_data:/var/lib/kafka/data
+  #   # networks:
+  #   #   - kafka-net
+
+  # kafka3:
+  #   image: confluentinc/cp-kafka:latest
+  #   hostname: kafka3
+  #   container_name: kafka3
+  #   ports:
+  #     - "9094:9092"
+  #     - "9103:9101"
+  #   environment:
+  #     KAFKA_BROKER_ID: 3
+  #     KAFKA_LISTENERS: SASL_PLAINTEXT://kafka3:9092,CONTROLLER://kafka3:9093
+  #     KAFKA_ADVERTISED_LISTENERS: SASL_PLAINTEXT://kafka3:9092
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: SASL_PLAINTEXT:SASL_PLAINTEXT,CONTROLLER:PLAINTEXT
+  #     KAFKA_INTER_BROKER_LISTENER_NAME: SASL_PLAINTEXT
+  #     KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+  #     KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+  #     KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+  #     KAFKA_SASL_PLAIN_USERNAME: user
+  #     KAFKA_SASL_PLAIN_PASSWORD: password
+  #     KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+  #     KAFKA_NODE_ID: 3
+  #     KAFKA_PROCESS_ROLES: broker,controller
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
+  #     KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+  #     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 2
+  #     KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+  #     KAFKA_OPTS: '-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf'
+  # #     # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
+  # #     # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
+  #     CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+  #   volumes:
+  #     - ./secrets/kafka_server_jaas.conf:/etc/kafka/kafka_server_jaas.conf
+  #   # volumes:
+  #   #   - kafka3_data:/var/lib/kafka/data
+  #   # networks:
+  #   #   - kafka-net
+
   broker:
     image: confluentinc/cp-kafka:7.9.0
     hostname: broker
@@ -11,9 +119,9 @@ services:
       # ID único para cada broker.
       KAFKA_NODE_ID: 1
       # Mapeia os listeners para os protocolos de segurança correspondentes.
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,SASL_PLAINTEXT:SASL'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
       # Define como os clientes Kafka irão se conectar ao broker.
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:29092,SASL_PLAINTEXT://localhost:9092'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
@@ -24,7 +132,7 @@ services:
       # Lista dos eleitores do quorum do controlador no formato <broker_id>@<host>:<port>. Isso é crucial no modo Kraft.
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker:29093,2@broker-2:29093,3@broker-3:29093'
       # Define as interfaces e protocolos que o broker irá escutar.
-      KAFKA_LISTENERS: 'PLAINTEXT://broker:29092,CONTROLLER://broker:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+      KAFKA_LISTENERS: 'PLAINTEXT://broker:29092,CONTROLLER://broker:29093,SASL_PLAINTEXT://0.0.0.0:9092'
       # Define o listener usado para comunicação entre os brokers.
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       # Define o listener para as conexões do controlador Kraft.
@@ -34,6 +142,10 @@ services:
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_PLAIN_USERNAME: user
+      KAFKA_SASL_PLAIN_PASSWORD: password
     volumes:
       - ./secrets/kafka_server_jaas.conf:/etc/kafka/kafka_server_jaas.conf
 
@@ -45,8 +157,8 @@ services:
       - "9093:9093"
     environment:
       KAFKA_NODE_ID: 2
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-2:29092,PLAINTEXT_HOST://localhost:9093'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-2:29092,SASL_PLAINTEXT://localhost:9093'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
@@ -55,7 +167,7 @@ services:
       KAFKA_JMX_HOSTNAME: localhost
       KAFKA_PROCESS_ROLES: 'broker,controller'
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker:29093,2@broker-2:29093,3@broker-3:29093'
-      KAFKA_LISTENERS: 'PLAINTEXT://broker-2:29092,CONTROLLER://broker-2:29093,PLAINTEXT_HOST://0.0.0.0:9093'
+      KAFKA_LISTENERS: 'PLAINTEXT://broker-2:29092,CONTROLLER://broker-2:29093,SASL_PLAINTEXT://0.0.0.0:9093'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
@@ -63,6 +175,10 @@ services:
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_PLAIN_USERNAME: user
+      KAFKA_SASL_PLAIN_PASSWORD: password
     volumes:
       - ./secrets/kafka_server_jaas.conf:/etc/kafka/kafka_server_jaas.conf
 
@@ -74,8 +190,8 @@ services:
       - "9094:9094"
     environment:
       KAFKA_NODE_ID: 3
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-3:29092,PLAINTEXT_HOST://localhost:9094'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-3:29092,SASL_PLAINTEXT://localhost:9094'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 2
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
@@ -84,7 +200,7 @@ services:
       KAFKA_JMX_HOSTNAME: localhost
       KAFKA_PROCESS_ROLES: 'broker,controller'
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker:29093,2@broker-2:29093,3@broker-3:29093'
-      KAFKA_LISTENERS: 'PLAINTEXT://broker-3:29092,CONTROLLER://broker-3:29093,PLAINTEXT_HOST://0.0.0.0:9094'
+      KAFKA_LISTENERS: 'PLAINTEXT://broker-3:29092,CONTROLLER://broker-3:29093,SASL_PLAINTEXT://0.0.0.0:9094'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
@@ -92,6 +208,10 @@ services:
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_PLAIN_USERNAME: user
+      KAFKA_SASL_PLAIN_PASSWORD: password
     volumes:
       - ./secrets/kafka_server_jaas.conf:/etc/kafka/kafka_server_jaas.conf
 
