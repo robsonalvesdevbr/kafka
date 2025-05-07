@@ -1,0 +1,19 @@
+{
+	"name": "source-jdbc-postgres",
+	"config": {
+		"connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+		"max.interval": "100",
+		"key.converter": "org.apache.kafka.connect.storage.StringConverter",
+		"value.converter": "io.confluent.connect.json.JsonSchemaConverter",
+		"connection.url": "jdbc:postgresql://localhost:5432/kafka_conn",
+		"connection.user": "keycloak",
+		"connection.password": "keycloak@2025",
+		"table.whitelist": "client",
+		"mode": "incrementing",
+		"incrementing.column.name": "id",
+		"topic.prefix": "minhabase",
+		"name": "source-jdbc-postgres"
+	},
+	"tasks": [],
+	"type": "source"
+}
