@@ -85,6 +85,8 @@ services:
     container_name: schema-registry
     depends_on:
       - broker-1
+      - broker-2
+      - broker-3
     ports:
       - "8081:8081"
     environment:
@@ -98,6 +100,8 @@ services:
     container_name: connect
     depends_on:
       - broker-1
+      - broker-2
+      - broker-3
       - schema-registry
     ports:
       - "8083:8083"
@@ -127,6 +131,8 @@ services:
     container_name: control-center
     depends_on:
       - broker-1
+      - broker-2
+      - broker-3
       - schema-registry
       - connect
       - ksqldb-server
@@ -143,6 +149,7 @@ services:
       CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
+      #CONTROL_CENTER_KAFKA_REST_URL: "http://rest-proxy:8082"
       PORT: 9021
 
   ksqldb-server:
@@ -151,6 +158,8 @@ services:
     container_name: ksqldb-server
     depends_on:
       - broker-1
+      - broker-2
+      - broker-3
       - connect
     ports:
       - "8088:8088"
@@ -173,6 +182,8 @@ services:
     container_name: ksqldb-cli
     depends_on:
       - broker-1
+      - broker-2
+      - broker-3
       - connect
       - ksqldb-server
     entrypoint: /bin/sh
@@ -185,6 +196,8 @@ services:
     depends_on:
       - ksqldb-server
       - broker-1
+      - broker-2
+      - broker-3
       - schema-registry
       - connect
     command: "bash -c 'echo Waiting for Kafka to be ready... && \
@@ -204,6 +217,8 @@ services:
     image: confluentinc/cp-kafka-rest:7.9.0
     depends_on:
       - broker-1
+      - broker-2
+      - broker-3
       - schema-registry
     ports:
       - 8082:8082
