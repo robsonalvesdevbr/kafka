@@ -1,0 +1,18 @@
+{
+    "name": "datagen-pageviews",
+    "config": {
+        "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
+        "quickstart": "pageviews",
+        "name": "datagen-pageviews",
+        "kafka.topic": "pageviews",
+        "max.interval": "100",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter"
+    },
+    "tasks": [
+        {
+            "connector": "datagen-pageviews",
+            "task": 0
+        }
+    ],
+    "type": "source"
+}
