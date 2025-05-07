@@ -230,3 +230,27 @@ services:
       KAFKA_REST_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092'}
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+
+  akhq:
+    image: tchiotludo/akhq
+    restart: unless-stopped
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092'}
+              schema-registry:
+                url: "http://schema-registry:8081"
+              connect:
+                - name: "connect"
+                  url: "http://connect:8083"
+
+    ports:
+      - 9023:8080
+    links:
+      - broker-1
+      - broker-2
+      - broker-3
+      - schema-registry
