@@ -233,6 +233,19 @@ services:
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
 
+  redpanda:
+    image: docker.redpanda.com/redpandadata/console:latest
+    container_name: redpanda
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+      - schema-registry
+    ports:
+      - 9022:8080
+    environment:
+      KAFKA_BROKERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092'}
+
   akhq:
     image: tchiotludo/akhq
     restart: unless-stopped
@@ -248,9 +261,13 @@ services:
               connect:
                 - name: "connect"
                   url: "http://connect:8083"
-
     ports:
       - 9023:8080
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+      - schema-registry
     links:
       - broker-1
       - broker-2
