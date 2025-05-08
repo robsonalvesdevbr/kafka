@@ -12,8 +12,7 @@
 		"table.whitelist": "client",
 		"mode": "incrementing",
 		"incrementing.column.name": "id",
-		"topic.prefix": "postgres-connect-"
-	},
-	"tasks": [],
-	"type": "source"
+		"topic.prefix": "postgres-connect-",
+		"value.converter.schemas.enable": "false"
+	}
 }
