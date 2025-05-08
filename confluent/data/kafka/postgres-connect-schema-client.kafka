@@ -1,0 +1,17 @@
+CONSUMER
+topic: postgres-connect-schema-client
+partitions: 0
+from: earliest
+
+###
+
+CONSUMER
+topic: postgres-connect-schema-client
+from: earliest
+
+###
+
+CONSUMER consumer-group-id-1
+topic: postgres-connect-schema-client
+partitions: 0
+from: earliest
