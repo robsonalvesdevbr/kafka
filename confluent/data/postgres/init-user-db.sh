@@ -10,4 +10,5 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         id int PRIMARY KEY,
         name VARCHAR(100) NOT NULL
     );
+    GRANT ALL PRIVILEGES ON TABLE client TO kafka;
 EOSQL
