@@ -183,6 +183,7 @@ services:
   ksqldb-cli:
     image: confluentinc/cp-ksqldb-cli:7.9.0
     container_name: ksqldb-cli
+    hostname: ksqldb-cli
     depends_on:
       - broker-1
       - broker-2
@@ -236,6 +237,7 @@ services:
   redpanda:
     image: docker.redpanda.com/redpandadata/console:latest
     container_name: redpanda
+    hostname: redpanda
     depends_on:
       - broker-1
       - broker-2
@@ -248,7 +250,8 @@ services:
 
   akhq:
     image: tchiotludo/akhq
-    restart: unless-stopped
+    container_name: akhq
+    hostname: akhq
     environment:
       AKHQ_CONFIGURATION: |
         akhq:
@@ -268,14 +271,11 @@ services:
       - broker-2
       - broker-3
       - schema-registry
-    links:
-      - broker-1
-      - broker-2
-      - broker-3
-      - schema-registry
 
-  db:
+  postgres-kafka-db:
     image: postgres
+    hostname: postgres-kafka-db
+    container_name: postgres-kafka-db
     restart: always
     ports:
       - "5432:5432"
