@@ -126,7 +126,7 @@ services:
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components,/data/plugins"
       TZ: "America/Sao_Paulo"
     volumes:
-      - ./data/plugins:/data/plugins
+      - ./data:/data
     command:
       - bash
       - -c
