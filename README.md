@@ -27,3 +27,4 @@ hostname -I
 [1]: https://hub.docker.com/r/apache/kafka-native "Imagem docker para p kafka-native"
 [2]: https://hub.docker.com/r/redpandadata/console "Imagem docker para Redpanda Console"
 [3]: https://github.com/confluentinc/cp-docker-images/blob/5.3.3-post/examples/kafka-cluster/docker-compose.yml "Exemplos de cluster da confluent kafka"
+[4]: https://docs.confluent.io/platform/7.0/connect/confluent-hub/component-archive.html "Confluent Hub"
