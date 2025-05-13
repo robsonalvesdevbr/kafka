@@ -49,6 +49,87 @@
       "inheritPreProcessors": {},
       "items": [
         {
+          "name": "/",
+          "api": {
+            "id": "16664888",
+            "method": "get",
+            "path": "http://localhost:8083",
+            "parameters": {},
+            "auth": {},
+            "securityScheme": {},
+            "commonParameters": {
+              "query": [],
+              "body": [],
+              "cookie": [],
+              "header": []
+            },
+            "responses": [
+              {
+                "id": "23133237",
+                "code": 200,
+                "name": "OK",
+                "headers": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "version": {
+                      "type": "string"
+                    },
+                    "commit": {
+                      "type": "string"
+                    },
+                    "kafka_cluster_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "version",
+                    "commit",
+                    "kafka_cluster_id"
+                  ]
+                },
+                "description": "",
+                "contentType": "json",
+                "mediaType": "",
+                "oasExtensions": ""
+              }
+            ],
+            "responseExamples": [],
+            "requestBody": {
+              "type": "none",
+              "parameters": [],
+              "mediaType": "",
+              "examples": [],
+              "oasExtensions": ""
+            },
+            "description": "",
+            "tags": [],
+            "status": "developing",
+            "serverId": "",
+            "operationId": "",
+            "sourceUrl": "",
+            "ordering": 50,
+            "cases": [],
+            "mocks": [],
+            "customApiFields": "{}",
+            "advancedSettings": {
+              "disabledSystemHeaders": {}
+            },
+            "mockScript": {},
+            "codeSamples": [],
+            "commonResponseStatus": {},
+            "responseChildren": [
+              "BLANK.23133237"
+            ],
+            "visibility": "INHERITED",
+            "oasExtensions": "",
+            "preProcessors": [],
+            "postProcessors": [],
+            "inheritPostProcessors": {},
+            "inheritPreProcessors": {}
+          }
+        },
+        {
           "name": "/connectors",
           "api": {
             "id": "16580891",
@@ -376,87 +457,6 @@
           }
         },
         {
-          "name": "/",
-          "api": {
-            "id": "16664888",
-            "method": "get",
-            "path": "http://localhost:8083",
-            "parameters": {},
-            "auth": {},
-            "securityScheme": {},
-            "commonParameters": {
-              "query": [],
-              "body": [],
-              "cookie": [],
-              "header": []
-            },
-            "responses": [
-              {
-                "id": "23133237",
-                "code": 200,
-                "name": "OK",
-                "headers": [],
-                "jsonSchema": {
-                  "type": "object",
-                  "properties": {
-                    "version": {
-                      "type": "string"
-                    },
-                    "commit": {
-                      "type": "string"
-                    },
-                    "kafka_cluster_id": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "version",
-                    "commit",
-                    "kafka_cluster_id"
-                  ]
-                },
-                "description": "",
-                "contentType": "json",
-                "mediaType": "",
-                "oasExtensions": ""
-              }
-            ],
-            "responseExamples": [],
-            "requestBody": {
-              "type": "none",
-              "parameters": [],
-              "mediaType": "",
-              "examples": [],
-              "oasExtensions": ""
-            },
-            "description": "",
-            "tags": [],
-            "status": "developing",
-            "serverId": "",
-            "operationId": "",
-            "sourceUrl": "",
-            "ordering": 50,
-            "cases": [],
-            "mocks": [],
-            "customApiFields": "{}",
-            "advancedSettings": {
-              "disabledSystemHeaders": {}
-            },
-            "mockScript": {},
-            "codeSamples": [],
-            "commonResponseStatus": {},
-            "responseChildren": [
-              "BLANK.23133237"
-            ],
-            "visibility": "INHERITED",
-            "oasExtensions": "",
-            "preProcessors": [],
-            "postProcessors": [],
-            "inheritPostProcessors": {},
-            "inheritPreProcessors": {}
-          }
-        },
-        {
           "name": "/connectors",
           "api": {
             "id": "16665225",
@@ -532,7 +532,7 @@
           }
         },
         {
-          "name": "/connectors-schema",
+          "name": "/connectors | schema",
           "api": {
             "id": "16712503",
             "method": "post",
@@ -607,7 +607,7 @@
           }
         },
         {
-          "name": "/connectors-schema",
+          "name": "/connectors | schema",
           "api": {
             "id": "16843322",
             "method": "put",
@@ -649,7 +649,7 @@
               "examples": [
                 {
                   "mediaType": "application/json",
-                  "value": "{\r\n\t\"name\": \"source-jdbc-postgres-schema\",\r\n\t\"connector.class\": \"io.confluent.connect.jdbc.JdbcSourceConnector\",\r\n\t\"tasks.max\": \"1\",\r\n\t\"max.interval\": \"100\",\r\n\t\"key.converter\": \"io.confluent.connect.json.JsonSchemaConverter\",\r\n\t\"key.converter.schema.registry.url\": \"http://schema-registry:8081\",\r\n\t\"value.converter\": \"io.confluent.connect.json.JsonSchemaConverter\",\r\n\t\"value.converter.schema.registry.url\": \"http://schema-registry:8081\",\r\n\t\"connection.url\": \"jdbc:postgresql://postgres-kafka-db:5432/kafkadb\",\r\n\t\"connection.user\": \"kafka\",\r\n\t\"connection.password\": \"kafka@2025\",\r\n\t\"table.whitelist\": \"client\",\r\n\t\"mode\": \"incrementing\",\r\n\t\"incrementing.column.name\": \"id\",\r\n\t\"topic.prefix\": \"postgres-connect-schema-\",\r\n\t\"topic.creation.default.replication.factor\": \"3\",\r\n\t\"topic.creation.default.partitions\": \"3\",\r\n\t\"topic.creation.$alias.replication.factor\": \"3\",\r\n\t\"topic.creation.$alias.partitions\": \"3\",\r\n\t\"transforms\": \"createKey,extractInt\",\r\n\t\"transforms.createKey.type\": \"org.apache.kafka.connect.transforms.ValueToKey\",\r\n\t\"transforms.createKey.fields\": \"id\",\r\n\t\"transforms.extractInt.type\": \"org.apache.kafka.connect.transforms.ExtractField$Key\",\r\n\t\"transforms.extractInt.field\": \"id\"\r\n}"
+                  "value": "{\r\n\t\"name\": \"source-jdbc-postgres-schema\",\r\n\t\"connector.class\": \"io.confluent.connect.jdbc.JdbcSourceConnector\",\r\n\t\"tasks.max\": \"4\",\r\n\t\"max.interval\": \"100\",\r\n\t\"key.converter\": \"io.confluent.connect.json.JsonSchemaConverter\",\r\n\t\"key.converter.schema.registry.url\": \"http://schema-registry:8081\",\r\n\t\"value.converter\": \"io.confluent.connect.json.JsonSchemaConverter\",\r\n\t\"value.converter.schema.registry.url\": \"http://schema-registry:8081\",\r\n\t\"connection.url\": \"jdbc:postgresql://postgres-kafka-db:5432/kafkadb\",\r\n\t\"connection.user\": \"kafka\",\r\n\t\"connection.password\": \"kafka@2025\",\r\n\t\"table.whitelist\": \"client\",\r\n\t\"mode\": \"incrementing\",\r\n\t\"incrementing.column.name\": \"id\",\r\n\t\"topic.prefix\": \"postgres-connect-schema-\",\r\n\t\"topic.creation.default.replication.factor\": \"3\",\r\n\t\"topic.creation.default.partitions\": \"3\",\r\n\t\"topic.creation.$alias.replication.factor\": \"3\",\r\n\t\"topic.creation.$alias.partitions\": \"3\",\r\n\t\"transforms\": \"createKey,extractString\",\r\n\t\"transforms.createKey.type\": \"org.apache.kafka.connect.transforms.ValueToKey\",\r\n\t\"transforms.createKey.fields\": \"name\",\r\n\t\"transforms.extractString.type\": \"org.apache.kafka.connect.transforms.ExtractField$Key\",\r\n\t\"transforms.extractString.field\": \"name\"\r\n}"
                 }
               ],
               "oasExtensions": ""
@@ -682,7 +682,7 @@
           }
         },
         {
-          "name": "/connectors-sync",
+          "name": "/connectors | sync",
           "api": {
             "id": "16754748",
             "method": "post",
@@ -747,6 +747,180 @@
             "commonResponseStatus": {},
             "responseChildren": [
               "BLANK.23269811"
+            ],
+            "visibility": "INHERITED",
+            "oasExtensions": "",
+            "preProcessors": [],
+            "postProcessors": [],
+            "inheritPostProcessors": {},
+            "inheritPreProcessors": {}
+          }
+        },
+        {
+          "name": "/config | schema all",
+          "api": {
+            "id": "16846012",
+            "method": "put",
+            "path": "http://localhost:8081/config",
+            "parameters": {
+              "header": [
+                {
+                  "required": false,
+                  "description": "",
+                  "type": "string",
+                  "id": "VPm77qEDSt",
+                  "example": "application/vnd.schemaregistry.v1+json",
+                  "enable": true,
+                  "name": "Content-Type"
+                }
+              ]
+            },
+            "auth": {},
+            "securityScheme": {},
+            "commonParameters": {
+              "query": [],
+              "body": [],
+              "cookie": [],
+              "header": []
+            },
+            "responses": [
+              {
+                "id": "23415342",
+                "code": 200,
+                "name": "Success",
+                "headers": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "description": "",
+                "contentType": "json",
+                "mediaType": "",
+                "oasExtensions": ""
+              }
+            ],
+            "responseExamples": [],
+            "requestBody": {
+              "type": "application/json",
+              "parameters": [],
+              "jsonSchema": {
+                "type": "object",
+                "properties": {}
+              },
+              "mediaType": "",
+              "examples": [
+                {
+                  "mediaType": "application/json",
+                  "value": "{\r\n    \"compatibility\": \"NONE\"\r\n}"
+                }
+              ],
+              "oasExtensions": ""
+            },
+            "description": "",
+            "tags": [],
+            "status": "developing",
+            "serverId": "",
+            "operationId": "",
+            "sourceUrl": "",
+            "ordering": 82,
+            "cases": [],
+            "mocks": [],
+            "customApiFields": "{}",
+            "advancedSettings": {
+              "disabledSystemHeaders": {}
+            },
+            "mockScript": {},
+            "codeSamples": [],
+            "commonResponseStatus": {},
+            "responseChildren": [
+              "BLANK.23415342"
+            ],
+            "visibility": "INHERITED",
+            "oasExtensions": "",
+            "preProcessors": [],
+            "postProcessors": [],
+            "inheritPostProcessors": {},
+            "inheritPreProcessors": {}
+          }
+        },
+        {
+          "name": "/config | schema specific",
+          "api": {
+            "id": "16846607",
+            "method": "put",
+            "path": "http://localhost:8081/config/postgres-connect-schema-client-key",
+            "parameters": {
+              "header": [
+                {
+                  "required": false,
+                  "description": "",
+                  "type": "string",
+                  "id": "VPm77qEDSt",
+                  "example": "application/vnd.schemaregistry.v1+json",
+                  "enable": true,
+                  "name": "Content-Type"
+                }
+              ]
+            },
+            "auth": {},
+            "securityScheme": {},
+            "commonParameters": {
+              "query": [],
+              "body": [],
+              "cookie": [],
+              "header": []
+            },
+            "responses": [
+              {
+                "id": "23414133",
+                "code": 200,
+                "name": "Success",
+                "headers": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "description": "",
+                "contentType": "json",
+                "mediaType": "",
+                "oasExtensions": ""
+              }
+            ],
+            "responseExamples": [],
+            "requestBody": {
+              "type": "application/json",
+              "parameters": [],
+              "jsonSchema": {
+                "type": "object",
+                "properties": {}
+              },
+              "mediaType": "",
+              "examples": [
+                {
+                  "mediaType": "application/json",
+                  "value": "{\r\n    \"compatibility\": \"NONE\"\r\n}"
+                }
+              ],
+              "oasExtensions": ""
+            },
+            "description": "",
+            "tags": [],
+            "status": "developing",
+            "serverId": "",
+            "operationId": "",
+            "sourceUrl": "",
+            "ordering": 88,
+            "cases": [],
+            "mocks": [],
+            "customApiFields": "{}",
+            "advancedSettings": {
+              "disabledSystemHeaders": {}
+            },
+            "mockScript": {},
+            "codeSamples": [],
+            "commonResponseStatus": {},
+            "responseChildren": [
+              "BLANK.23414133"
             ],
             "visibility": "INHERITED",
             "oasExtensions": "",

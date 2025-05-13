@@ -30,3 +30,4 @@ hostname -I
 [4]: https://docs.confluent.io/platform/7.0/connect/confluent-hub/component-archive.html "Confluent Hub"
 [5]: https://docs.confluent.io/platform/current/connect/references/restapi.html "Confluent Rest API"
 [6]: https://docs.confluent.io/platform/current/connect/index.html "Confluent Connect"
+[7]: https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html "Confluent Schema Registry"
