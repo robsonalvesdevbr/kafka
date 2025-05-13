@@ -113,28 +113,31 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092'}
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
   
-  # schema-registry-init:
-  #   image: curlimages/curl:8.7.1
-  #   restart: "no"
-  #   container_name: schema-registry-init
-  #   hostname: schema-registry-init
-  #   depends_on:
-  #     - schema-registry
-  #   entrypoint: [ "sh", "-c" ]
-  #   command: |
-  #     "
-  #     echo '⏳ Aguardando Schema Registry...';
-  #     until curl -s http://schema-registry:8081/subjects > /dev/null; do
-  #       sleep 2;
-  #     done;
-  #     echo '✅ Schema Registry disponível, configurando compatibilidade...';
+  schema-registry-init:
+    image: curlimages/curl:8.7.1
+    restart: "no"
+    container_name: schema-registry-init
+    hostname: schema-registry-init
+    depends_on:
+      - schema-registry
+    entrypoint: sh
+    command: >
+      -c '
+        echo -e "⏳ Aguardando Schema Registry...";
 
-  #     curl -X PUT http://schema-registry:8081/config \
-  #       -H 'Content-Type: application/vnd.schemaregistry.v1+json' \
-  #       -d '{\"compatibility\": \"NONE\"}';
+        until curl -s http://schema-registry:8081/subjects > /dev/null; do
+          sleep 2;
+        done;
 
-  #     echo '🎉 Compatibilidade definida como NONE.';
-  #     "
+        echo -e "✅ Schema Registry disponível, configurando compatibilidade...";
+
+        curl -X PUT http://schema-registry:8081/config \
+            -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+            -d "{\"compatibility\": \"NONE\"}";
+        
+        echo -e "\n🎉 Compatibilidade definida como NONE.";
+      '
+
 
   connect:
     image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
