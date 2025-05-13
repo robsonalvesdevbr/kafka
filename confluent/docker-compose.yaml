@@ -138,7 +138,6 @@ services:
         echo -e "\n🎉 Compatibilidade definida como NONE.";
       '
 
-
   connect:
     image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
     hostname: connect
