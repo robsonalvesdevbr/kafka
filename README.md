@@ -31,3 +31,6 @@ hostname -I
 [5]: https://docs.confluent.io/platform/current/connect/references/restapi.html "Confluent Rest API"
 [6]: https://docs.confluent.io/platform/current/connect/index.html "Confluent Connect"
 [7]: https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html "Confluent Schema Registry"
+[8]: https://docs.confluent.io/platform/current/installation/docker/config-reference.html "Confluent Docker Config Reference"
+[9]: https://github.com/confluentinc/kafka-rest "Confluent Kafka Rest"
+[10]: https://developer.confluent.io/courses/schema-registry/schema-compatibility/ "Confluent Schema Registry"
