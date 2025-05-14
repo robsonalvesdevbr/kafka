@@ -271,6 +271,10 @@ services:
       KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: 'true'
       KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
+      KSQL_KSQL_STREAMS_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+      KSQL_KSQL_STREAMS_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+    volumes:
+      - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
 
   ksqldb-cli:
     image: confluentinc/cp-ksqldb-cli:${CONFLUENTINC_VERSION:-7.9.1}
