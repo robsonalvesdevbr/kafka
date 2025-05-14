@@ -5,6 +5,10 @@ services:
     image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: broker-1
     container_name: broker-1
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/cp-kafka
     ports:
       - "9092:9092"
     environment:
@@ -38,6 +42,10 @@ services:
     image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: broker-2
     container_name: broker-2
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/cp-kafka
     ports:
       - "9093:9093"
     environment:
@@ -70,6 +78,10 @@ services:
     image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: broker-3
     container_name: broker-3
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/cp-kafka
     ports:
       - "9094:9094"
     environment:
@@ -106,6 +118,10 @@ services:
       - broker-1
       - broker-2
       - broker-3
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/cp-schema-registry
     ports:
       - "8081:8081"
     environment:
@@ -118,6 +134,10 @@ services:
     restart: "no"
     container_name: schema-registry-init
     hostname: schema-registry-init
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=8.7.1
+      - br.dev.robsonalves.service.description=curlimages/curl
     depends_on:
       - schema-registry
     entrypoint: sh
@@ -149,6 +169,10 @@ services:
       - schema-registry
     ports:
       - "8083:8083"
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=0.6.4-7.6.0
+      - br.dev.robsonalves.service.description=cnfldemos/cp-server-connect-datagen
     environment:
       CONNECT_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092'}
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
@@ -201,6 +225,10 @@ services:
       - ksqldb-server
     ports:
       - "9021:9021"
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/cp-enterprise-control-center
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092'}
       CONTROL_CENTER_CONNECT_CONNECT-DEFAULT_CLUSTER: 'connect:8083'
@@ -226,6 +254,10 @@ services:
       - connect
     ports:
       - "8088:8088"
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/cp-ksqldb-server
     environment:
       KSQL_CONFIG_DIR: "/etc/ksql"
       KSQL_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092'}
@@ -244,6 +276,10 @@ services:
     image: confluentinc/cp-ksqldb-cli:${CONFLUENTINC_VERSION:-7.9.1}
     container_name: ksqldb-cli
     hostname: ksqldb-cli
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/cp-ksqldb-cli
     depends_on:
       - broker-1
       - broker-2
@@ -257,6 +293,10 @@ services:
     image: confluentinc/ksqldb-examples:7.9.1
     hostname: ksql-datagen
     container_name: ksql-datagen
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/ksqldb-examples
     depends_on:
       - ksqldb-server
       - broker-1
@@ -286,6 +326,10 @@ services:
       - schema-registry
     ports:
       - 8082:8082
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
+      - br.dev.robsonalves.service.description=confluentinc/cp-kafka-rest
     hostname: rest-proxy
     container_name: rest-proxy
     environment:
@@ -305,6 +349,10 @@ services:
       - schema-registry
     ports:
       - 9022:8080
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=latest
+      - br.dev.robsonalves.service.description=docker.redpanda.com/redpandadata/console
     environment:
       KAFKA_BROKERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092'}
 
@@ -326,6 +374,10 @@ services:
                   url: "http://connect:8083"
     ports:
       - 9023:8080
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=latest
+      - br.dev.robsonalves.service.description=tchiotludo/akhq
     depends_on:
       - broker-1
       - broker-2
@@ -338,6 +390,10 @@ services:
     container_name: postgres-kafka-db
     ports:
       - "5432:5432"
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=latest
+      - br.dev.robsonalves.service.description=postgres
     # set shared memory limit when using docker compose
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
