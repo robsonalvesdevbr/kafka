@@ -34,3 +34,4 @@ hostname -I
 [8]: https://docs.confluent.io/platform/current/installation/docker/config-reference.html "Confluent Docker Config Reference"
 [9]: https://github.com/confluentinc/kafka-rest "Confluent Kafka Rest"
 [10]: https://developer.confluent.io/courses/schema-registry/schema-compatibility/ "Confluent Schema Registry"
+[11]: https://docs.confluent.io/platform/current/ksqldb/quickstart.html#ksqldb-quick-start-create-docker-compose-file "Confluent ksqlDB"
