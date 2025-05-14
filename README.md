@@ -26,6 +26,7 @@ ksql> show topics;
 ksql> create stream client_created_stream (id int, name string) with (kafka_topic='postgres-connect-client', value_format='json');
 ksql> select * from client_created_stream;
 ksql> select * from client_created_stream emit changes;
+ksql> create table last_client_created_table as select id, name from client_created_stream group by id, name emit changes;
 ```
 
 ```bash

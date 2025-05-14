@@ -37,6 +37,29 @@ Content-Type: application/json
     }
 }
 
+### /connectors | schema
+POST http://localhost:8083/connectors
+Content-Type: application/json
+
+{
+    "name": "source-jdbc-postgres",
+    "config": {
+        "name": "source-jdbc-postgres",
+        "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+        "max.interval": "100",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "connection.url": "jdbc:postgresql://postgres-kafka-db:5432/kafkadb",
+        "connection.user": "kafka",
+        "connection.password": "kafka@2025",
+        "table.whitelist": "client",
+        "mode": "incrementing",
+        "incrementing.column.name": "id",
+        "topic.prefix": "postgres-connect-",
+        "value.converter.schemas.enable": "true"
+    }
+}
+
 ### /connectors
 POST http://localhost:8083/connectors
 Content-Type: application/json
