@@ -336,7 +336,6 @@ services:
     image: postgres
     hostname: postgres-kafka-db
     container_name: postgres-kafka-db
-    restart: always
     ports:
       - "5432:5432"
     # set shared memory limit when using docker compose
