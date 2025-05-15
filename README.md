@@ -6,6 +6,7 @@
 
 ```bash
 # Para executar o cluster do kafka com SASL, execute o seguinte comando:
+# Definição do SASL no arquivo docker-compose.override.yml
 docker-compose up -d
 
 # Para executar o cluster do kafka sem SASL, execute o seguinte comando:
