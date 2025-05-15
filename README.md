@@ -29,6 +29,7 @@ ksql> select * from client_created_stream emit changes;
 ksql> create table last_client_created_table as select id, name from client_created_stream group by id, name emit changes;
 ksql> create table last_client_created_table as select id, LATEST_BY_OFFSET(name) AS name from client_created_stream group by id emit changes;
 ksql> create table last_client_created_table as select LATEST_BY_OFFSET(id) as last_id, name, count(*) as quantity  from client_created_stream group by name emit changes;
+ksql> SET 'auto.offset.reset' = 'earliest';
 ```
 
 ```bash

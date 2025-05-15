@@ -273,6 +273,7 @@ services:
       KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
       KSQL_KSQL_STREAMS_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KSQL_KSQL_STREAMS_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+      KSQL_AUTO_OFFSET_RESET: earliest
     volumes:
       - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
 
