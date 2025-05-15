@@ -159,7 +159,10 @@ services:
       '
 
   connect:
-    image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
+    #image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
+    build:
+      context: .
+      dockerfile: Dockerfile.cp-server-connect-datagen
     hostname: connect
     container_name: connect
     depends_on:
@@ -199,13 +202,13 @@ services:
       - bash
       - -c
       - |
-        echo "Installing Connector"
-        confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.4.2
-        confluent-hub install --no-prompt debezium/debezium-connector-mysql:2.4.2
-        confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:5.1.11
-        confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:15.0.0
-        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.8.4
-        confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:latest
+        #echo "Installing Connector"
+        #confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.4.2
+        #confluent-hub install --no-prompt debezium/debezium-connector-mysql:2.4.2
+        #confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:5.1.11
+        #confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:15.0.0
+        #confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.8.4
+        #confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:latest
         #
         echo "Launching Kafka Connect worker"
         /etc/confluent/docker/run &
