@@ -20,9 +20,9 @@ POST http://localhost:8083/connectors
 Content-Type: application/json
 
 {
-    "name": "source-jdbc-postgres",
+    "name": "{{name-connector}}",
     "config": {
-        "name": "source-jdbc-postgres",
+        "name": "{{name-connector}}",
         "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
         "max.interval": "100",
         "key.converter": "org.apache.kafka.connect.storage.StringConverter",
@@ -43,7 +43,7 @@ PUT http://localhost:8083/connectors/{{name-connector}}/config
 Content-Type: application/json
 
 {
-	"name": "source-jdbc-postgres",
+	"name": "{{name-connector}}",
 	"connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
 	"max.interval": "100",
 	"key.converter": "org.apache.kafka.connect.storage.StringConverter",
@@ -62,9 +62,9 @@ POST http://localhost:8083/connectors
 Content-Type: application/json
 
 {
-	"name": "source-jdbc-postgres-schema",
+	"name": "{{name-connector}}",
 	"config": {
-		"name": "source-jdbc-postgres-schema",
+		"name": "{{name-connector}}",
 		"connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
 		"tasks.max": "1",
 		"max.interval": "100",
@@ -96,9 +96,9 @@ POST http://localhost:8083/connectors
 Content-Type: application/json
 
 {
-	"name": "source-jdbc-postgres-schema",
+	"name": "{{name-connector}}",
 	"config": {
-		"name": "source-jdbc-postgres-schema",
+		"name": "{{name-connector}}",
 		"connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
 		"tasks.max": "1",
 		"max.interval": "100",
@@ -130,7 +130,7 @@ PUT http://localhost:8083/connectors/{{name-connector}}/config
 Content-Type: application/json
 
 {
-	"name": "source-jdbc-postgres-schema",
+	"name": "{{name-connector}}",
 	"connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
 	"tasks.max": "4",
 	"max.interval": "100",
@@ -161,7 +161,7 @@ PUT http://localhost:8083/connectors/{{name-connector}}/config
 Content-Type: application/json
 
 {
-	"name": "source-jdbc-postgres-schema",
+	"name": "{{name-connector}}",
 	"connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
 	"tasks.max": "4",
 	"max.interval": "100",
