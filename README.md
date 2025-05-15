@@ -56,3 +56,4 @@ hostname -I
 [10]: https://developer.confluent.io/courses/schema-registry/schema-compatibility/ "Confluent Schema Registry"
 [11]: https://docs.confluent.io/platform/current/ksqldb/quickstart.html#ksqldb-quick-start-create-docker-compose-file "Confluent ksqlDB"
 [12]: https://docs.confluent.io/platform/current/kafka-rest/api.html#records-v3 "Confluent Kafka Rest-Proxy API"
+[13]: https://docs.confluent.io/platform/current/get-started/platform-quickstart.html#quickstart "Generate Mock Data"
