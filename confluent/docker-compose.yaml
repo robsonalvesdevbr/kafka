@@ -149,22 +149,16 @@ services:
     depends_on:
       - schema-registry
     entrypoint: sh
-    command: >
-      -c '
+    command:
+      - -c
+      - |
         echo -e "⏳ Aguardando Schema Registry...";
-
         until curl -s http://schema-registry:8081/subjects > /dev/null; do
           sleep 2;
         done;
-
         echo -e "✅ Schema Registry disponível, configurando compatibilidade...";
-
-        curl -X PUT http://schema-registry:8081/config \
-            -H "Content-Type: application/vnd.schemaregistry.v1+json" \
-            -d "{\"compatibility\": \"BACKWARD\"}";
-        
+        curl -X PUT http://schema-registry:8081/config -H "Content-Type: application/vnd.schemaregistry.v1+json" -d '{"compatibility": "BACKWARD"}';
         echo -e "\n🎉 Compatibilidade definida como BACKWARD.";
-      '
     networks:
       - kafka-net
 
