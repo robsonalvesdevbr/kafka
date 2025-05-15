@@ -37,6 +37,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s # Tempo para o broker iniciar antes de começar os checks
+    networks:
+      - kafka-net
 
   broker-2:
     image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
@@ -73,6 +75,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s # Tempo para o broker iniciar antes de começar os checks
+    networks:
+      - kafka-net
 
   broker-3:
     image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
@@ -109,6 +113,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s # Tempo para o broker iniciar antes de começar os checks
+    networks:
+      - kafka-net
 
   schema-registry:
     image: confluentinc/cp-schema-registry:${CONFLUENTINC_VERSION:-7.9.1}
@@ -128,6 +134,8 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    networks:
+      - kafka-net
   
   schema-registry-init:
     image: curlimages/curl:8.7.1
@@ -157,9 +165,14 @@ services:
         
         echo -e "\n🎉 Compatibilidade definida como BACKWARD.";
       '
+    networks:
+      - kafka-net
 
   connect:
-    image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
+    #image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
+    build:
+      context: .
+      dockerfile: Dockerfile.cp-server-connect-datagen
     hostname: connect
     container_name: connect
     depends_on:
@@ -199,18 +212,20 @@ services:
       - bash
       - -c
       - |
-        echo "Installing Connector"
-        confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.4.2
-        confluent-hub install --no-prompt debezium/debezium-connector-mysql:2.4.2
-        confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:5.1.11
-        confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:15.0.0
-        confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.8.4
-        confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:latest
+        #echo "Installing Connector"
+        #confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.4.2
+        #confluent-hub install --no-prompt debezium/debezium-connector-mysql:2.4.2
+        #confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:5.1.11
+        #confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:15.0.0
+        #confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.8.4
+        #confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:latest
         #
         echo "Launching Kafka Connect worker"
         /etc/confluent/docker/run &
         #
         sleep infinity
+    networks:
+      - kafka-net
 
   control-center:
     image: confluentinc/cp-enterprise-control-center:${CONFLUENTINC_VERSION:-7.9.1}
@@ -242,6 +257,8 @@ services:
       CONFLUENT_METRICS_TOPIC_REPLICATION: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       #CONTROL_CENTER_KAFKA_REST_URL: "http://rest-proxy:8082"
       PORT: 9021
+    networks:
+      - kafka-net
 
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:${CONFLUENTINC_VERSION:-7.9.1}
@@ -276,6 +293,8 @@ services:
       KSQL_AUTO_OFFSET_RESET: earliest
     volumes:
       - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
+    networks:
+      - kafka-net
 
   ksqldb-cli:
     image: confluentinc/cp-ksqldb-cli:${CONFLUENTINC_VERSION:-7.9.1}
@@ -293,6 +312,8 @@ services:
       - ksqldb-server
     entrypoint: /bin/sh
     tty: true
+    networks:
+      - kafka-net
 
   ksql-datagen:
     image: confluentinc/ksqldb-examples:7.9.1
@@ -325,6 +346,8 @@ services:
       STREAMS_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
       STREAMS_SCHEMA_REGISTRY_HOST: schema-registry
       STREAMS_SCHEMA_REGISTRY_PORT: 8081
+    networks:
+      - kafka-net
 
   rest-proxy:
     image: confluentinc/cp-kafka-rest:${CONFLUENTINC_VERSION:-7.9.1}
@@ -346,6 +369,8 @@ services:
       KAFKA_REST_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+    networks:
+      - kafka-net
 
   redpanda:
     image: docker.redpanda.com/redpandadata/console:latest
@@ -364,6 +389,8 @@ services:
       - br.dev.robsonalves.service.description=docker.redpanda.com/redpandadata/console
     environment:
       KAFKA_BROKERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
+    networks:
+      - kafka-net
 
   akhq:
     image: tchiotludo/akhq
@@ -392,6 +419,8 @@ services:
       - broker-2
       - broker-3
       - schema-registry
+    networks:
+      - kafka-net
 
   postgres-kafka-db:
     image: postgres
@@ -415,3 +444,9 @@ services:
       POSTGRES_PASSWORD: example
     volumes:
       - ./data/postgres:/docker-entrypoint-initdb.d
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    driver: bridge
