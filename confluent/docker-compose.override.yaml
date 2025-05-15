@@ -1,0 +1,145 @@
+---
+services:
+
+  broker-1:
+    environment:
+      # Configuração KRaft
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'}
+      KAFKA_LISTENERS: 'PLAINTEXT://:29092,SASL_PLAINTEXT://:9092,CONTROLLER://:29093'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-1:29092,SASL_PLAINTEXT://localhost:9092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+
+      # Configuração SASL/PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'PLAIN'
+
+      # Configuração JAAS para SASL/PLAIN diretamente via variáveis de ambiente
+      # A sintaxe exata pode variar um pouco entre imagens Kafka.
+      # Para confluentinc/cp-kafka, esta é uma forma comum:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
+
+      # Define os usuários e senhas para o mecanismo PLAIN
+      # Formato: org.apache.kafka.common.security.plain.PlainLoginModule required user_<username>="<password>" ... ;
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas.conf" # Referencia um arquivo que montaremos
+
+      # Se a imagem permitir configuração direta do JAAS para PLAIN (mais comum em algumas imagens Bitnami ou se você customizar o entrypoint):
+      # KAFKA_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret" user_producer_app="producer-secret" user_consumer_app="consumer-secret";'
+      # KAFKA_LISTENER_NAME_SASL_PLAINTEXT_PLAIN_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.plain.PlainLoginModule required user_admin="admin-secret" user_producer_app="producer-secret" user_consumer_app="consumer-secret";'
+      
+      #> KAFKA_PROCESS_ROLES: 'broker,controller'
+      #> KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'} 
+      #> KAFKA_LISTENERS: 'PLAINTEXT://broker-1:29092,CONTROLLER://broker-1:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+      #> KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://localhost:9092'
+      #> KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      #> KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      #> KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      #> KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      #> KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      #> KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      #> KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+    volumes:
+      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas.conf:ro
+
+  broker-2:
+    environment:
+      # Configuração KRaft
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'}
+      KAFKA_LISTENERS: 'PLAINTEXT://:29092,SASL_PLAINTEXT://:9092,CONTROLLER://:29093'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-2:29092,SASL_PLAINTEXT://localhost:9093'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+
+      # Configuração SASL/PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'PLAIN'
+
+      # Configuração JAAS para SASL/PLAIN diretamente via variáveis de ambiente
+      # A sintaxe exata pode variar um pouco entre imagens Kafka.
+      # Para confluentinc/cp-kafka, esta é uma forma comum:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
+
+      # Define os usuários e senhas para o mecanismo PLAIN
+      # Formato: org.apache.kafka.common.security.plain.PlainLoginModule required user_<username>="<password>" ... ;
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas.conf" # Referencia um arquivo que montaremos
+
+      # Se a imagem permitir configuração direta do JAAS para PLAIN (mais comum em algumas imagens Bitnami ou se você customizar o entrypoint):
+      # KAFKA_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret" user_producer_app="producer-secret" user_consumer_app="consumer-secret";'
+      # KAFKA_LISTENER_NAME_SASL_PLAINTEXT_PLAIN_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.plain.PlainLoginModule required user_admin="admin-secret" user_producer_app="producer-secret" user_consumer_app="consumer-secret";'
+      
+      #> KAFKA_PROCESS_ROLES: 'broker,controller'
+      #> KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'} 
+      #> KAFKA_LISTENERS: 'PLAINTEXT://broker-1:29092,CONTROLLER://broker-1:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+      #> KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://localhost:9092'
+      #> KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      #> KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      #> KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      #> KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      #> KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      #> KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      #> KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+    volumes:
+      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas.conf:ro
+      
+
+  broker-3:
+    environment:
+      # Configuração KRaft
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'}
+      KAFKA_LISTENERS: 'PLAINTEXT://:29092,SASL_PLAINTEXT://:9092,CONTROLLER://:29093'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-3:29092,SASL_PLAINTEXT://localhost:9094'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+
+      # Configuração SASL/PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'PLAIN'
+
+      # Configuração JAAS para SASL/PLAIN diretamente via variáveis de ambiente
+      # A sintaxe exata pode variar um pouco entre imagens Kafka.
+      # Para confluentinc/cp-kafka, esta é uma forma comum:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
+
+      # Define os usuários e senhas para o mecanismo PLAIN
+      # Formato: org.apache.kafka.common.security.plain.PlainLoginModule required user_<username>="<password>" ... ;
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas.conf" # Referencia um arquivo que montaremos
+
+      # Se a imagem permitir configuração direta do JAAS para PLAIN (mais comum em algumas imagens Bitnami ou se você customizar o entrypoint):
+      # KAFKA_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret" user_producer_app="producer-secret" user_consumer_app="consumer-secret";'
+      # KAFKA_LISTENER_NAME_SASL_PLAINTEXT_PLAIN_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.plain.PlainLoginModule required user_admin="admin-secret" user_producer_app="producer-secret" user_consumer_app="consumer-secret";'
+      
+      #> KAFKA_PROCESS_ROLES: 'broker,controller'
+      #> KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'} 
+      #> KAFKA_LISTENERS: 'PLAINTEXT://broker-1:29092,CONTROLLER://broker-1:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+      #> KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://localhost:9092'
+      #> KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      #> KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      #> KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      #> KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      #> KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      #> KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      #> KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+    volumes:
+      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas.conf:ro
+      
