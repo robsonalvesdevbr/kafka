@@ -5,7 +5,12 @@
 [Imagem do Redpanda Console][2]
 
 ```bash
+# Para executar o cluster do kafka com SASL, execute o seguinte comando:
 docker-compose up -d
+
+# Para executar o cluster do kafka sem SASL, execute o seguinte comando:
+docker-compose -f docker-compose.yml up -d
+
 docker exec -it kafka-cluster_kafka-1_1 bash
 kafka-topics --create --bootstrap-server localhost:29092 --replication-factor 3 --partitions 3 --topic meutopico
 kafka-topics --list --bootstrap-server localhost:29092
