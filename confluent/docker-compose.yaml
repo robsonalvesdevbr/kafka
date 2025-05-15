@@ -153,9 +153,9 @@ services:
 
         curl -X PUT http://schema-registry:8081/config \
             -H "Content-Type: application/vnd.schemaregistry.v1+json" \
-            -d "{\"compatibility\": \"NONE\"}";
+            -d "{\"compatibility\": \"BACKWARD\"}";
         
-        echo -e "\n🎉 Compatibilidade definida como NONE.";
+        echo -e "\n🎉 Compatibilidade definida como BACKWARD.";
       '
 
   connect:

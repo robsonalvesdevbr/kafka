@@ -1,4 +1,5 @@
-@name-connector = source-jdbc-postgres-schema
+@name-connector = source-jdbc-postgres
+
 # /
 GET http://localhost:8083
 
@@ -38,26 +39,22 @@ Content-Type: application/json
 }
 
 ### /connectors | schema
-POST http://localhost:8083/connectors
+PUT http://localhost:8083/connectors/{{name-connector}}/config
 Content-Type: application/json
 
 {
-    "name": "source-jdbc-postgres",
-    "config": {
-        "name": "source-jdbc-postgres",
-        "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-        "max.interval": "100",
-        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
-        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-        "connection.url": "jdbc:postgresql://postgres-kafka-db:5432/kafkadb",
-        "connection.user": "kafka",
-        "connection.password": "kafka@2025",
-        "table.whitelist": "client",
-        "mode": "incrementing",
-        "incrementing.column.name": "id",
-        "topic.prefix": "postgres-connect-",
-        "value.converter.schemas.enable": "true"
-    }
+	"name": "source-jdbc-postgres",
+	"connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+	"max.interval": "100",
+	"key.converter": "org.apache.kafka.connect.storage.StringConverter",
+	"value.converter": "org.apache.kafka.connect.json.JsonConverter",
+	"connection.url": "jdbc:postgresql://postgres-kafka-db:5432/kafkadb",
+	"connection.user": "kafka",
+	"connection.password": "kafka@2025",
+	"table.whitelist": "client",
+	"mode": "incrementing",
+	"incrementing.column.name": "id",
+	"topic.prefix": "postgres-connect-"
 }
 
 ### /connectors
@@ -81,7 +78,7 @@ Content-Type: application/json
 		"table.whitelist": "client",
 		"mode": "incrementing",
 		"incrementing.column.name": "id",
-		"topic.prefix": "postgres-connect-schema-",
+		"topic.prefix": "postgres-connect-",
 		"topic.creation.default.replication.factor": "3",
 		"topic.creation.default.partitions": "3",
 		"topic.creation.$alias.replication.factor": "3",
@@ -115,7 +112,7 @@ Content-Type: application/json
 		"table.whitelist": "client",
 		"mode": "incrementing",
 		"incrementing.column.name": "id",
-		"topic.prefix": "postgres-connect-schema-",
+		"topic.prefix": "postgres-connect-",
 		"topic.creation.default.replication.factor": "3",
 		"topic.creation.default.partitions": "3",
 		"topic.creation.$alias.replication.factor": "3",
@@ -147,7 +144,7 @@ Content-Type: application/json
 	"table.whitelist": "client",
 	"mode": "incrementing",
 	"incrementing.column.name": "id",
-	"topic.prefix": "postgres-connect-schema-",
+	"topic.prefix": "postgres-connect-",
 	"topic.creation.default.replication.factor": "3",
 	"topic.creation.default.partitions": "3",
 	"topic.creation.$alias.replication.factor": "3",
@@ -178,7 +175,7 @@ Content-Type: application/json
 	"table.whitelist": "client",
 	"mode": "incrementing",
 	"incrementing.column.name": "id",
-	"topic.prefix": "postgres-connect-schema-",
+	"topic.prefix": "postgres-connect-",
 	"topic.creation.default.replication.factor": "3",
 	"topic.creation.default.partitions": "3",
 	"topic.creation.$alias.replication.factor": "3",
@@ -195,7 +192,7 @@ PUT http://localhost:8081/config
 Content-Type: application/vnd.schemaregistry.v1+json
 
 {
-    "compatibility": "NONE"
+    "compatibility": "BACKWARD"
 }
 
 ### /config/{name-schema} | schema specific
