@@ -27,6 +27,8 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+      KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -37,6 +39,8 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 40s # Tempo para o broker iniciar antes de começar os checks
+    volumes:
+      - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
     networks:
       - kafka-net
 
@@ -66,6 +70,8 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+      KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -75,6 +81,8 @@ services:
     #   timeout: 10s
     #   retries: 3
     #   start_period: 40s # Tempo para o broker iniciar antes de começar os checks
+    volumes:
+      - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
     networks:
       - kafka-net
 
@@ -104,9 +112,13 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+      KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+    volumes:
+      - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
     # healthcheck:
     #   test: ["CMD-SHELL", "nc -z broker-3 9094 || exit 1"]
     #   interval: 30s
@@ -202,6 +214,7 @@ services:
       TZ: "America/Sao_Paulo"
     volumes:
       - ./data:/data
+      - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
     command:
       - bash
       - -c
@@ -363,6 +376,10 @@ services:
       KAFKA_REST_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+      KAFKA_REST_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+      KAFKA_REST_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+    volumes:
+      - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
     networks:
       - kafka-net
 
