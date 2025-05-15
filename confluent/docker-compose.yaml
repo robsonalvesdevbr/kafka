@@ -31,12 +31,12 @@ services:
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
     # Dentro da definição do serviço broker-1:
-    healthcheck:
-      test: ["CMD-SHELL", "nc -z broker-1 9092 || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s # Tempo para o broker iniciar antes de começar os checks
+    # healthcheck:
+    #   test: ["CMD-SHELL", "nc -z broker-1 9092 || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s # Tempo para o broker iniciar antes de começar os checks
     networks:
       - kafka-net
 
@@ -69,12 +69,12 @@ services:
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
-    healthcheck:
-      test: ["CMD-SHELL", "nc -z broker-2 9093 || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s # Tempo para o broker iniciar antes de começar os checks
+    # healthcheck:
+    #   test: ["CMD-SHELL", "nc -z broker-2 9093 || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s # Tempo para o broker iniciar antes de começar os checks
     networks:
       - kafka-net
 
@@ -107,12 +107,12 @@ services:
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
-    healthcheck:
-      test: ["CMD-SHELL", "nc -z broker-3 9094 || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s # Tempo para o broker iniciar antes de começar os checks
+    # healthcheck:
+    #   test: ["CMD-SHELL", "nc -z broker-3 9094 || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s # Tempo para o broker iniciar antes de começar os checks
     networks:
       - kafka-net
 
