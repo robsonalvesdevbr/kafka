@@ -187,6 +187,7 @@ Content-Type: application/json
 	"transforms.extractString.field": "hour_test"
 }
 
+### Kakfa schema registry REST API
 ### /config | schema
 PUT http://localhost:8081/config
 Content-Type: application/vnd.schemaregistry.v1+json
@@ -201,4 +202,36 @@ Content-Type: application/vnd.schemaregistry.v1+json
 
 {
     "compatibility": "NONE"
+}
+
+### Kafka Connect REST API
+### /v3/clusters
+GET http://localhost:8082/v3/clusters
+
+### /v3/clusters/MkU3OEVBNTcwNTJENDM2Qk/topics
+GET http://localhost:8082/v3/clusters/MkU3OEVBNTcwNTJENDM2Qk/topics
+
+### /v3/clusters/{cluster-id}/topics/{topic-name}/records
+POST http://localhost:8082/v3/clusters/MkU3OEVBNTcwNTJENDM2Qk/topics/my-topic-created/records
+Content-Type: application/json
+
+{
+    "headers": [
+        {
+            "name": "Header-1",
+            "value": "SGVhZGVyLTE="
+        },
+        {
+            "name": "Header-2",
+            "value": "SGVhZGVyLTI="
+        }
+    ],
+    "key": {
+        "type": "BINARY",
+        "data": "Zm9vYmFy"
+    },
+    "value": {
+        "type": "STRING",
+        "data": "Robson"
+    }
 }
