@@ -26,7 +26,7 @@ services:
       KAFKA_LISTENERS: 'PLAINTEXT://broker-1:29092,CONTROLLER://broker-1:29093,PLAINTEXT_HOST://0.0.0.0:9092'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
@@ -41,6 +41,7 @@ services:
     #   start_period: 40s # Tempo para o broker iniciar antes de começar os checks
     volumes:
       - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
+      - broker1-data:/var/lib/kafka/data
     networks:
       - kafka-net
 
@@ -69,7 +70,7 @@ services:
       KAFKA_LISTENERS: 'PLAINTEXT://broker-2:29092,CONTROLLER://broker-2:29093,PLAINTEXT_HOST://0.0.0.0:9093'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
@@ -83,6 +84,7 @@ services:
     #   start_period: 40s # Tempo para o broker iniciar antes de começar os checks
     volumes:
       - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
+      - broker2-data:/var/lib/kafka/data
     networks:
       - kafka-net
 
@@ -111,14 +113,15 @@ services:
       KAFKA_LISTENERS: 'PLAINTEXT://broker-3:29092,CONTROLLER://broker-3:29093,PLAINTEXT_HOST://0.0.0.0:9094'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
-      KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+      KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor      
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
     volumes:
       - ./data/libs/monitoring-interceptors-7.5.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.5.1.jar
+      - broker3-data:/var/lib/kafka/data
     # healthcheck:
     #   test: ["CMD-SHELL", "nc -z broker-3 9094 || exit 1"]
     #   interval: 30s
@@ -261,7 +264,7 @@ services:
       CONTROL_CENTER_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
-      CONFLUENT_METRICS_TOPIC_REPLICATION: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      CONTROL_CENTER_CONFLUENT_METRICS_TOPIC_REPLICATION: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       #CONTROL_CENTER_KAFKA_REST_URL: "http://rest-proxy:8082"
       PORT: 9021
     networks:
@@ -461,3 +464,8 @@ services:
 networks:
   kafka-net:
     driver: bridge
+
+volumes:
+  broker1-data:
+  broker2-data:
+  broker3-data:
