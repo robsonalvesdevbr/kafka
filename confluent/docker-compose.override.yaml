@@ -18,12 +18,12 @@ services:
       KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
 
       # Configuração SASL/PLAIN
-      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
-      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'PLAIN'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'SCRAM-SHA-256'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'SCRAM-SHA-256'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
     volumes:
-      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas.conf:ro
+      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
 
   broker-2:
     environment:
@@ -42,12 +42,12 @@ services:
       KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
 
       # Configuração SASL/PLAIN
-      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
-      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'PLAIN'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'SCRAM-SHA-256'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'SCRAM-SHA-256'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
     volumes:
-      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas.conf:ro
+      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
       
 
   broker-3:
@@ -67,10 +67,10 @@ services:
       KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
 
       # Configuração SASL/PLAIN
-      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
-      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'PLAIN'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'SCRAM-SHA-256'
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'SCRAM-SHA-256'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
     volumes:
-      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas.conf:ro
+      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
       

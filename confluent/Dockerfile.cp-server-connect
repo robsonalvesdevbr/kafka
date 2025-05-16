@@ -1,0 +1,15 @@
+FROM confluentinc/cp-server-connect-base:${CONFLUENTINC_VERSION:-7.9.1}
+
+#USER root
+
+# Instalar conectores
+RUN confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.4.2 && \
+    confluent-hub install --no-prompt debezium/debezium-connector-mysql:2.4.2 && \
+    confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:5.1.11 && \
+    confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:15.0.0 && \
+    confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:10.8.4 && \
+    confluent-hub install --no-prompt confluentinc/kafka-connect-datagen:latest
+
+#USER appuser # Voltar para o usuário original da imagem base se necessário
+
+# O comando original será definido no docker-compose.yaml
