@@ -1,3 +1,6 @@
+# Pegar do .env
+ARG CONFLUENTINC_VERSION
+
 FROM confluentinc/cp-server-connect-base:${CONFLUENTINC_VERSION:-7.9.1}
 
 #USER root

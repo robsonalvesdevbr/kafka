@@ -214,17 +214,25 @@ services:
 
   connect:
     #image: cnfldemos/cp-server-connect-datagen:0.6.4-7.6.0
-    image: confluentinc/cp-server-connect:${CONFLUENTINC_VERSION:-7.9.1}
+    #image: confluentinc/cp-server-connect:${CONFLUENTINC_VERSION:-7.9.1}
     build:
       context: .
       dockerfile: Dockerfile.cp-server-connect
     hostname: connect
     container_name: connect
-    # depends_on:
-    #   - broker-1
-    #   - broker-2
-    #   - broker-3
-    #   - schema-registry
+    depends_on:
+      broker-1:
+        condition: service_started
+        required: false
+      broker-2:
+        condition: service_started
+        required: false
+      broker-3:
+        condition: service_started
+        required: false
+      schema-registry:
+        condition: service_started
+        required: false
     ports:
       - "8083:8083"
     labels:
@@ -246,7 +254,7 @@ services:
       CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
       CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       # CLASSPATH required due to CC-2422
-      #CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
       CONNECT_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
       CONNECT_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components,/data/plugins"
@@ -277,13 +285,25 @@ services:
     image: confluentinc/cp-enterprise-control-center:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: control-center
     container_name: control-center
-    # depends_on:
-    #   - broker-1
-    #   - broker-2
-    #   - broker-3
-    #   - schema-registry
-    #   - connect
-    #   - ksqldb-server
+    depends_on:
+      broker-1:
+        condition: service_started
+        required: false
+      broker-2:
+        condition: service_started
+        required: false
+      broker-3:
+        condition: service_started
+        required: false
+      schema-registry:
+        condition: service_started
+        required: false
+      connect:
+        condition: service_started
+        required: false
+      ksqldb-server:
+        condition: service_started
+        required: false
     ports:
       - "9021:9021"
     labels:
@@ -314,11 +334,22 @@ services:
     image: confluentinc/cp-ksqldb-server:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: ksqldb-server
     container_name: ksqldb-server
-    # depends_on:
-    #   - broker-1
-    #   - broker-2
-    #   - broker-3
-    #   - connect
+    depends_on:
+      broker-1:
+        condition: service_started
+        required: false
+      broker-2:
+        condition: service_started
+        required: false
+      broker-3:
+        condition: service_started
+        required: false
+      schema-registry:
+        condition: service_started
+        required: false
+      connect:
+        condition: service_started
+        required: false
     ports:
       - "8088:8088"
     dns:
@@ -360,12 +391,9 @@ services:
       - br.dev.robsonalves.service.group=kafka
       - br.dev.robsonalves.service.version=${CONFLUENTINC_VERSION:-7.9.1}
       - br.dev.robsonalves.service.description=confluentinc/cp-ksqldb-cli
-    # depends_on:
-      # - broker-1
-      # - broker-2
-      # - broker-3
-      # - connect
-      # - ksqldb-server
+    depends_on:
+      ksqldb-server:
+        condition: service_started
     entrypoint: /bin/sh
     tty: true
     networks:
@@ -407,11 +435,22 @@ services:
 
   rest-proxy:
     image: confluentinc/cp-kafka-rest:${CONFLUENTINC_VERSION:-7.9.1}
-    # depends_on:
-    #   - broker-1
-    #   - broker-2
-    #   - broker-3
-    #   - schema-registry
+    depends_on:
+      broker-1:
+        condition: service_started
+        required: false
+      broker-2:
+        condition: service_started
+        required: false
+      broker-3:
+        condition: service_started
+        required: false
+      schema-registry:
+        condition: service_started
+        required: false
+      connect:
+        condition: service_started
+        required: false
     ports:
       - 8082:8082
     labels:
@@ -457,11 +496,22 @@ services:
     image: docker.redpanda.com/redpandadata/console:latest
     container_name: redpanda
     hostname: redpanda
-    # depends_on:
-    #   - broker-1
-    #   - broker-2
-    #   - broker-3
-    #   - schema-registry
+    depends_on:
+      broker-1:
+        condition: service_started
+        required: false
+      broker-2:
+        condition: service_started
+        required: false
+      broker-3:
+        condition: service_started
+        required: false
+      schema-registry:
+        condition: service_started
+        required: false
+      connect:
+        condition: service_started
+        required: false
     ports:
       - 9022:8080
     labels:
@@ -485,6 +535,22 @@ services:
     image: tchiotludo/akhq
     container_name: akhq
     hostname: akhq
+    depends_on:
+      broker-1:
+        condition: service_started
+        required: false
+      broker-2:
+        condition: service_started
+        required: false
+      broker-3:
+        condition: service_started
+        required: false
+      schema-registry:
+        condition: service_started
+        required: false
+      connect:
+        condition: service_started
+        required: false
     environment:
       AKHQ_CONFIGURATION: |
         akhq:
