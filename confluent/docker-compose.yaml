@@ -2,7 +2,7 @@
 services:
 
   broker-1:
-    image: confluentinc/cp-enterprise-kafka:${CONFLUENTINC_VERSION:-7.9.1}
+    image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: broker-1
     container_name: broker-1
     labels:
@@ -30,9 +30,9 @@ services:
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
-      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
-      KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      #KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      #KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
+      #KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -50,7 +50,7 @@ services:
       - kafka-net
 
   broker-2:
-    image: confluentinc/cp-enterprise-kafka:${CONFLUENTINC_VERSION:-7.9.1}
+    image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: broker-2
     container_name: broker-2
     depends_on:
@@ -81,9 +81,9 @@ services:
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
-      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
-      KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      #KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      #KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
+      #KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -101,7 +101,7 @@ services:
       - kafka-net
 
   broker-3:
-    image: confluentinc/cp-enterprise-kafka:${CONFLUENTINC_VERSION:-7.9.1}
+    image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: broker-3
     container_name: broker-3
     depends_on:
@@ -134,9 +134,9 @@ services:
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
-      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
-      KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}      
+      #KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      #KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
+      #KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}      
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
