@@ -27,12 +27,12 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: /var/lib/kafka/data
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
-      #KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
-      #KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      #KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
+      KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -44,7 +44,7 @@ services:
       start_period: 40s # Tempo para o broker iniciar antes de começar os checks
     volumes:
       - ./data/libs/monitoring-interceptors-7.9.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
-      #- ./data/libs/confluent-metrics-7.9.1-ce:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
+      - ./data/libs/confluent-metrics-7.9.1-ce.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       - broker1-data:/var/lib/kafka/data
     networks:
       - kafka-net
@@ -78,12 +78,12 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: /var/lib/kafka/data
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
-      #KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
-      #KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      #KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
+      KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -95,7 +95,7 @@ services:
       start_period: 40s # Tempo para o broker iniciar antes de começar os checks
     volumes:
       - ./data/libs/monitoring-interceptors-7.9.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
-      #- ./data/libs/confluent-metrics-7.9.1-ce:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
+      - ./data/libs/confluent-metrics-7.9.1-ce.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       - broker2-data:/var/lib/kafka/data
     networks:
       - kafka-net
@@ -131,18 +131,18 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: /var/lib/kafka/data
-      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
+      CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
-      #KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
-      #KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      #KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}      
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
+      KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}      
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
     volumes:
       - ./data/libs/monitoring-interceptors-7.9.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
-      #- ./data/libs/confluent-metrics-7.9.1-ce:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
+      - ./data/libs/confluent-metrics-7.9.1-ce.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       - broker3-data:/var/lib/kafka/data
     healthcheck:
       test: ["CMD-SHELL", "nc -z broker-3 29093 || exit 1"]
