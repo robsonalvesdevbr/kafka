@@ -377,7 +377,7 @@ services:
       KSQL_KSQL_STREAMS_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KSQL_KSQL_STREAMS_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
       KSQL_AUTO_OFFSET_RESET: earliest
-      #KSQL_KSQL_HIDDEN_TOPICS: '^_.*'
+      KSQL_KSQL_HIDDEN_TOPICS: '^docker-connect-offsets|^docker-connect-status|^docker-connect-configs|^(default_)?ksql_.*|^ksql-.*|^_.*'
     volumes:
       - ./data/libs/monitoring-interceptors-7.9.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
     networks:
