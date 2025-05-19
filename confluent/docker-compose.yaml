@@ -36,7 +36,8 @@ services:
       KAFKA_MESSAGE_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       KAFKA_REPLICA_FETCH_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       KAFKA_REPLICA_FETCH_MIN_BYTES: 1
-      KAFKA_LOG_RETENTION_HOURS: 48 # 2dias 168 # 7 dias
+      #KAFKA_LOG_RETENTION_HOURS: 168 # 7 dias
+      KAFKA_LOG_RETENTION_MS: 172800000 # 2 dias
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -91,7 +92,8 @@ services:
       KAFKA_MESSAGE_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       KAFKA_REPLICA_FETCH_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       KAFKA_REPLICA_FETCH_MIN_BYTES: 1
-      KAFKA_LOG_RETENTION_HOURS: 48 # 2dias 168 # 7 dias
+      #KAFKA_LOG_RETENTION_HOURS: 168 # 7 dias
+      KAFKA_LOG_RETENTION_MS: 172800000 # 2 dias
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -148,7 +150,8 @@ services:
       KAFKA_MESSAGE_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       KAFKA_REPLICA_FETCH_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       KAFKA_REPLICA_FETCH_MIN_BYTES: 1  
-      KAFKA_LOG_RETENTION_HOURS: 48 # 2dias 168 # 7 dias   
+      #KAFKA_LOG_RETENTION_HOURS: 168 # 7 dias   
+      KAFKA_LOG_RETENTION_MS: 172800000 # 2 dias
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
