@@ -33,6 +33,7 @@ services:
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
       KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
       KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_MESSAGE_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -84,6 +85,7 @@ services:
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
       KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
       KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_MESSAGE_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
@@ -136,7 +138,8 @@ services:
       KAFKA_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
       KAFKA_CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}      
+      KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
+      KAFKA_MESSAGE_MAX_BYTES: 51200 #50k em bytes (50 * 1024)      
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
