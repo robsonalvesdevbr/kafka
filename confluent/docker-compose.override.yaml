@@ -23,7 +23,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
       KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
     volumes:
-      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
+      - ./secrets/kafka_server_jaas-scram.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
 
   broker-2:
     environment:
@@ -47,7 +47,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
       KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
     volumes:
-      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
+      - ./secrets/kafka_server_jaas-scram.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
       
 
   broker-3:
@@ -72,5 +72,26 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
       KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
     volumes:
-      - ./secrets/kafka_server_jaas.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
+      - ./secrets/kafka_server_jaas-scram.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
       
+  kafka-init-users:
+    image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
+    container_name: kafka-init-users
+    hostname: kafka-init-users
+    depends_on:
+      broker-1:
+        condition: service_healthy
+      broker-2:
+        condition: service_healthy
+      broker-3:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-c"]
+    command: |
+      "
+      sleep 20 && \
+      kafka-configs --bootstrap-server broker-1:29092 --alter --add-config 'SCRAM-SHA-256=[iterations=4096,password=admin-secret]' --entity-type users --entity-name admin && \
+      kafka-configs --bootstrap-server broker-1:29092 --alter --add-config 'SCRAM-SHA-256=[iterations=4096,password=producer-secret]' --entity-type users --entity-name producer_app && \
+      kafka-configs --bootstrap-server broker-1:29092 --alter --add-config 'SCRAM-SHA-256=[iterations=4096,password=consumer-secret]' --entity-type users --entity-name consumer_app
+      "
+    networks:
+      - kafka-net
