@@ -632,6 +632,10 @@ services:
     hostname: prometheus
     ports:
       - 9090:9090
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=latest
+      - br.dev.robsonalves.service.description=prom/prometheus
     volumes:
       - "./data/prometheus/:/etc/prometheus/"
     networks:
@@ -639,6 +643,10 @@ services:
 
   grafana:
     image: grafana/grafana
+    labels:
+      - br.dev.robsonalves.service.group=kafka
+      - br.dev.robsonalves.service.version=latest
+      - br.dev.robsonalves.service.description=grafana/grafana
     container_name: grafana
     hostname: grafana
     ports:
