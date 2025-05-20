@@ -21,9 +21,10 @@ services:
       KAFKA_SASL_ENABLED_MECHANISMS: 'SCRAM-SHA-256,SCRAM-SHA-512'
       KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'SCRAM-SHA-256'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf -javaagent:/jmx/jmx_prometheus_javaagent-1.3.0.jar=7071:/jmx/kafka-metrics.yml"
     volumes:
       - ./secrets/kafka_server_jaas-scram.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
+      - ./data/libs/jmx:/jmx:ro
 
   broker-2:
     environment:
@@ -45,9 +46,10 @@ services:
       KAFKA_SASL_ENABLED_MECHANISMS: 'SCRAM-SHA-256,SCRAM-SHA-512'
       KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'SCRAM-SHA-256'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf -javaagent:/jmx/jmx_prometheus_javaagent-1.3.0.jar=7071:/jmx/kafka-metrics.yml"
     volumes:
       - ./secrets/kafka_server_jaas-scram.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
+      - ./data/libs/jmx:/jmx:ro
       
 
   broker-3:
@@ -70,9 +72,10 @@ services:
       KAFKA_SASL_ENABLED_MECHANISMS: 'SCRAM-SHA-256,SCRAM-SHA-512'
       KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'SCRAM-SHA-256'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/kraft/kafka_server_jaas-scram.conf -javaagent:/jmx/jmx_prometheus_javaagent-1.3.0.jar=7071:/jmx/kafka-metrics.yml"
     volumes:
       - ./secrets/kafka_server_jaas-scram.conf:/etc/kafka/kraft/kafka_server_jaas-scram.conf:ro
+      - ./data/libs/jmx:/jmx:ro
       
   kafka-init-users:
     image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
