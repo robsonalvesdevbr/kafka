@@ -38,6 +38,13 @@ ksql> create table last_client_created_table as select id, name from client_crea
 ksql> create table last_client_created_table as select id, LATEST_BY_OFFSET(name) AS name from client_created_stream group by id emit changes;
 ksql> create table last_client_created_table as select LATEST_BY_OFFSET(id) as last_id, name, count(*) as quantity  from client_created_stream group by name emit changes;
 ksql> SET 'auto.offset.reset' = 'earliest';
+
+# Produzindo mensagens no tópico robson
+echo '{"pedidoId": "123", "clienteId": "abc", "itens": [{"produtoId": "p001", "quantidade": 2}]}' | \
+docker run -i --network  confluent_kafka_kafka-net confluentinc/cp-kcat:latest kcat -b broker-1:29092 -P -t robson
+
+# Consumindo o tópico robson
+docker run -it --network confluent_kafka_kafka-net confluentinc/cp-kcat:latest kcat -b broker-1:29092 -C -t robson -f 'Chave: %k | Mensagem: %s\n'
 ```
 
 ```bash
