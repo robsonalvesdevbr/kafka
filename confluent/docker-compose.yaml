@@ -1,6 +1,5 @@
 ---
 services:
-
   broker-1:
     image: confluentinc/cp-kafka:${CONFLUENTINC_VERSION:-7.9.1}
     hostname: broker-1
@@ -14,19 +13,19 @@ services:
       - "7071:7071"
     environment:
       KAFKA_NODE_ID: 1
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://localhost:9092'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://broker-1:29092,PLAINTEXT_HOST://localhost:9092"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       KAFKA_JMX_PORT: 9101
       KAFKA_JMX_HOSTNAME: localhost
-      KAFKA_PROCESS_ROLES: 'broker,controller'
-      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'} 
-      KAFKA_LISTENERS: 'PLAINTEXT://broker-1:29092,CONTROLLER://broker-1:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
-      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'}
+      KAFKA_LISTENERS: "PLAINTEXT://broker-1:29092,CONTROLLER://broker-1:29093,PLAINTEXT_HOST://0.0.0.0:9092"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
       KAFKA_LOG_DIRS: /var/lib/kafka/data
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
@@ -41,11 +40,11 @@ services:
       #KAFKA_LOG_RETENTION_HOURS: 168 # 7 dias
       KAFKA_LOG_RETENTION_MS: 172800000 # 2 dias
       KAFKA_COMPRESSION_TYPE: lz4
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_MIN_INSYNC_REPLICAS: 2
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
-      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
     healthcheck:
       test: ["CMD-SHELL", "nc -z broker-1 29093 || exit 1"]
       interval: 30s
@@ -76,19 +75,19 @@ services:
       - "7072:7072"
     environment:
       KAFKA_NODE_ID: 2
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-2:29092,PLAINTEXT_HOST://localhost:9093'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://broker-2:29092,PLAINTEXT_HOST://localhost:9093"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       KAFKA_JMX_PORT: 9101
       KAFKA_JMX_HOSTNAME: localhost
-      KAFKA_PROCESS_ROLES: 'broker,controller'
-      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'} 
-      KAFKA_LISTENERS: 'PLAINTEXT://broker-2:29092,CONTROLLER://broker-2:29093,PLAINTEXT_HOST://0.0.0.0:9093'
-      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
-      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'}
+      KAFKA_LISTENERS: "PLAINTEXT://broker-2:29092,CONTROLLER://broker-2:29093,PLAINTEXT_HOST://0.0.0.0:9093"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
       KAFKA_LOG_DIRS: /var/lib/kafka/data
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
@@ -103,11 +102,11 @@ services:
       #KAFKA_LOG_RETENTION_HOURS: 168 # 7 dias
       KAFKA_LOG_RETENTION_MS: 172800000 # 2 dias
       KAFKA_COMPRESSION_TYPE: lz4
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_MIN_INSYNC_REPLICAS: 2
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
-      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
     healthcheck:
       test: ["CMD-SHELL", "nc -z broker-2 29093 || exit 1"]
       interval: 30s
@@ -140,19 +139,19 @@ services:
       - "7073:7073"
     environment:
       KAFKA_NODE_ID: 3
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker-3:29092,PLAINTEXT_HOST://localhost:9094'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://broker-3:29092,PLAINTEXT_HOST://localhost:9094"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       KAFKA_JMX_PORT: 9101
       KAFKA_JMX_HOSTNAME: localhost
-      KAFKA_PROCESS_ROLES: 'broker,controller'
-      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'} 
-      KAFKA_LISTENERS: 'PLAINTEXT://broker-3:29092,CONTROLLER://broker-3:29093,PLAINTEXT_HOST://0.0.0.0:9094'
-      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
-      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: ${KAFKA_CONTROLLER_QUORUM_VOTERS:-'1@broker-1:29093,2@broker-2:29093,3@broker-3:29093'}
+      KAFKA_LISTENERS: "PLAINTEXT://broker-3:29092,CONTROLLER://broker-3:29093,PLAINTEXT_HOST://0.0.0.0:9094"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
       KAFKA_LOG_DIRS: /var/lib/kafka/data
       CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
       KAFKA_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
@@ -162,16 +161,16 @@ services:
       KAFKA_CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
       KAFKA_MESSAGE_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
       KAFKA_REPLICA_FETCH_MAX_BYTES: 51200 #50k em bytes (50 * 1024)
-      KAFKA_REPLICA_FETCH_MIN_BYTES: 1 
-      KAFKA_OPTS: "-javaagent:/jmx/jmx_prometheus_javaagent-1.3.0.jar=7073:/jmx/kafka-metrics.yml" 
-      #KAFKA_LOG_RETENTION_HOURS: 168 # 7 dias   
+      KAFKA_REPLICA_FETCH_MIN_BYTES: 1
+      KAFKA_OPTS: "-javaagent:/jmx/jmx_prometheus_javaagent-1.3.0.jar=7073:/jmx/kafka-metrics.yml"
+      #KAFKA_LOG_RETENTION_HOURS: 168 # 7 dias
       KAFKA_LOG_RETENTION_MS: 172800000 # 2 dias
       KAFKA_COMPRESSION_TYPE: lz4
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_MIN_INSYNC_REPLICAS: 2
       # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       # See https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-storage-sh
-      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
     volumes:
       - ./data/libs/monitoring-interceptors-7.9.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
       - ./data/libs/confluent-metrics-7.9.1-ce.jar:/usr/share/java/confluent-telemetry/confluent-metrics-7.9.1-ce.jar
@@ -218,7 +217,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
     networks:
       - kafka-net
-  
+
   schema-registry-init:
     image: curlimages/curl:8.7.1
     restart: "no"
@@ -345,8 +344,8 @@ services:
       - br.dev.robsonalves.service.description=confluentinc/cp-enterprise-control-center
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      CONTROL_CENTER_CONNECT_CONNECT-DEFAULT_CLUSTER: 'connect:8083'
-      CONTROL_CENTER_CONNECT_HEALTHCHECK_ENDPOINT: '/connectors'
+      CONTROL_CENTER_CONNECT_CONNECT-DEFAULT_CLUSTER: "connect:8083"
+      CONTROL_CENTER_CONNECT_HEALTHCHECK_ENDPOINT: "/connectors"
       CONTROL_CENTER_KSQL_KSQLDB1_URL: "http://ksqldb-server:8088"
       CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL: "http://localhost:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
@@ -404,13 +403,13 @@ services:
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
       KSQL_KSQL_CONNECT_URL: "http://connect:8083"
       KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
-      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: 'true'
-      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
       #CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
       KSQL_KSQL_STREAMS_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KSQL_KSQL_STREAMS_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
       KSQL_AUTO_OFFSET_RESET: earliest
-      KSQL_KSQL_HIDDEN_TOPICS: '^docker-connect-offsets|^docker-connect-status|^docker-connect-configs|^(default_)?ksql_.*|^ksql-.*|^_.*'
+      KSQL_KSQL_HIDDEN_TOPICS: "^docker-connect-offsets|^docker-connect-status|^docker-connect-configs|^(default_)?ksql_.*|^ksql-.*|^_.*"
     volumes:
       - ./data/libs/monitoring-interceptors-7.9.1.jar:/usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
     networks:
@@ -447,7 +446,7 @@ services:
     #   - broker-3
     #   - schema-registry
     #   - connect
-    command: 
+    command:
       - bash
       - -c
       - |
@@ -496,7 +495,7 @@ services:
       KAFKA_REST_HOST_NAME: rest-proxy
       KAFKA_REST_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
       KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
-      KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
+      KAFKA_REST_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       #CLASSPATH: /usr/share/java/monitoring-interceptors/monitoring-interceptors-7.9.1.jar
       KAFKA_REST_CONSUMER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
       KAFKA_REST_PRODUCER_INTERCEPTOR_CLASSES: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
@@ -525,44 +524,44 @@ services:
   #   networks:
   #     - kafka-net
 
-  redpanda:
-    image: docker.redpanda.com/redpandadata/console:latest
-    container_name: redpanda
-    hostname: redpanda
-    depends_on:
-      broker-1:
-        condition: service_started
-        required: false
-      broker-2:
-        condition: service_started
-        required: false
-      broker-3:
-        condition: service_started
-        required: false
-      schema-registry:
-        condition: service_started
-        required: false
-      connect:
-        condition: service_started
-        required: false
-    ports:
-      - 9022:8080
-    labels:
-      - br.dev.robsonalves.service.group=kafka
-      - br.dev.robsonalves.service.version=latest
-      - br.dev.robsonalves.service.description=docker.redpanda.com/redpandadata/console
-    environment:
-      KAFKA_BROKERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
-      CONFIG_FILEPATH: "/tmp/redpanda-console-config.yaml"
-      CONSOLE_CONFIG_FILE: |
-        # Configure a connection to the Redpanda cluster
-        # See https://docs.redpanda.com/current/console/config/connect-to-redpanda/
-        kafka:
-          brokers: ["broker-1:29092","broker-2:29092","broker-3:29092"]
-    volumes:
-      - ./data/redpanda:/tmp
-    networks:
-      - kafka-net
+  # redpanda:
+  #   image: docker.redpanda.com/redpandadata/console:latest
+  #   container_name: redpanda
+  #   hostname: redpanda
+  #   depends_on:
+  #     broker-1:
+  #       condition: service_started
+  #       required: false
+  #     broker-2:
+  #       condition: service_started
+  #       required: false
+  #     broker-3:
+  #       condition: service_started
+  #       required: false
+  #     schema-registry:
+  #       condition: service_started
+  #       required: false
+  #     connect:
+  #       condition: service_started
+  #       required: false
+  #   ports:
+  #     - 9022:8080
+  #   labels:
+  #     - br.dev.robsonalves.service.group=kafka
+  #     - br.dev.robsonalves.service.version=latest
+  #     - br.dev.robsonalves.service.description=docker.redpanda.com/redpandadata/console
+  #   environment:
+  #     KAFKA_BROKERS: ${BOOTSTRAP_SERVERS:-'broker-1:29092,broker-2:29092,broker-3:29092'}
+  #     CONFIG_FILEPATH: "/tmp/redpanda-console-config.yaml"
+  #     CONSOLE_CONFIG_FILE: |
+  #       # Configure a connection to the Redpanda cluster
+  #       # See https://docs.redpanda.com/current/console/config/connect-to-redpanda/
+  #       kafka:
+  #         brokers: ["broker-1:29092","broker-2:29092","broker-3:29092"]
+  #   volumes:
+  #     - ./data/redpanda:/tmp
+  #   networks:
+  #     - kafka-net
 
   akhq:
     image: tchiotludo/akhq
